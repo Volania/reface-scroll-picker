@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 export function ScrollPicker({ items = [], defaultOptionIndex = 2, onChange }) {
   const containerRef = useRef(null);
@@ -9,11 +9,26 @@ export function ScrollPicker({ items = [], defaultOptionIndex = 2, onChange }) {
 
   const paddedItems = [...Array(paddingStart).fill(''), ...items, ...Array(paddingEnd).fill('')];
 
+  const scrollToOption = useCallback(
+    ({ element, option, enableSmoothScroll = false }) => {
+      let scrollTo =
+        element ||
+        itemRefs.current.find((item) => item.dataset.id === option.id) ||
+        itemRefs.current[paddingStart];
+
+      scrollTo?.scrollIntoView({
+        block: 'center',
+        behavior: enableSmoothScroll ? 'smooth' : 'instant',
+      });
+    },
+    [paddingStart]
+  );
+
   useEffect(() => {
-    itemRefs.current[Math.min(defaultOptionIndex, items.length + paddingStart)]?.scrollIntoView({
-      block: 'center',
+    scrollToOption({
+      element: itemRefs.current[Math.min(defaultOptionIndex, items.length + paddingStart)],
     });
-  }, [items, defaultOptionIndex, paddingStart]);
+  }, [items, defaultOptionIndex, paddingStart, scrollToOption]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -45,7 +60,7 @@ export function ScrollPicker({ items = [], defaultOptionIndex = 2, onChange }) {
     });
 
     return () => observer.disconnect();
-  }, []);
+  }, [onChange]);
 
   return (
     items.length !== 0 && (
@@ -62,6 +77,9 @@ export function ScrollPicker({ items = [], defaultOptionIndex = 2, onChange }) {
               data-id={item || i}
               ref={(el) => (itemRefs.current[i] = el)}
               className="h-8 px-4 flex items-center justify-center snap-start transition-colors"
+              onClick={(e) => {
+                scrollToOption({ element: e.target, enableSmoothScroll: true });
+              }}
             >
               {item}
             </li>
