@@ -1,4 +1,6 @@
 import { hour24to12 } from '@/utils/ampm';
+import { getSearchParams } from '@/utils/getSearchParams';
+import { dateIsValid } from '@/utils/dateIsValid';
 
 export function getDateParts(date) {
   const year = date.getUTCFullYear();
@@ -17,4 +19,14 @@ export function getDateParts(date) {
     minute,
     ampm,
   };
+}
+
+export function getDatePartsFromSearchParams() {
+  let defaultDateISO = new Date(getSearchParams()?.date);
+
+  if (!dateIsValid(defaultDateISO)) {
+    defaultDateISO = new Date();
+  }
+
+  return getDateParts(defaultDateISO);
 }

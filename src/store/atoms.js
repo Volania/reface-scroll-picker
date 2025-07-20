@@ -1,10 +1,8 @@
 import { atom } from 'jotai';
-import { getSearchParams } from '@/utils/getSearchParams';
-import { getDateParts } from '@/utils/getDateParts';
+import { getDatePartsFromSearchParams } from '@/utils/getDateParts';
 import { createDaysArr } from '@/utils/createDaysArr';
 
-const defaultDateISO = getSearchParams()?.date || new Date().toISOString();
-const defaultDateParts = getDateParts(new Date(defaultDateISO));
+const defaultDateParts = getDatePartsFromSearchParams();
 
 export const selectedYearAtom = atom(defaultDateParts.year);
 export const selectedMonthAtom = atom(defaultDateParts.month);

@@ -1,16 +1,14 @@
-import { getSearchParams } from '@/utils/getSearchParams';
-import { getDateParts } from '@/utils/getDateParts';
+import { getDatePartsFromSearchParams } from '@/utils/getDateParts';
 import YearPicker from '@/components/YearPicker';
 import MonthPicker from '@/components/MonthPicker';
 import DayPicker from '@/components/DayPicker';
 import HourPicker from '@/components/HourPicker';
 import MinutePicker from '@/components/MinutePicker';
 import AmPmPicker from '@/components/AmPmPicker';
-import SubmitBtn from './components/SubmitBtn';
+import SubmitBtn from '@/components/SubmitBtn';
 
 function App() {
-  const defaultDateISO = getSearchParams()?.date || new Date().toISOString();
-  const defaultDateParts = getDateParts(new Date(defaultDateISO));
+  const defaultDateParts = getDatePartsFromSearchParams();
 
   return (
     <div className="m-8 flex flex-col w-max max-w-[95%] mx-auto">
