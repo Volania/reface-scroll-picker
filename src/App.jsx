@@ -4,6 +4,7 @@ import { ScrollPicker } from '@/components/ScrollPicker.jsx';
 import { getSearchParams } from '@/utils/getSearchParams';
 import { getDateParts } from '@/utils/getDateParts';
 import { createYearsArr } from '@/utils/createYearsArr';
+import { months } from '@/utils/months';
 
 function App() {
   const defaultDateISO = getSearchParams()?.date || new Date().toISOString();
@@ -21,12 +22,20 @@ function App() {
     }
   }, [selectedYear, yearsList]);
 
+  // Month picker data
+  const [selectedMonth, setSelectedMonth] = useState(months[dateParts.month]);
+
   // Month, Day, Year, Hour, Minute, AM/PM
 
   return (
     <div className="m-8">
       <h1 className="text-2xl mb-8">Scroll Picker</h1>
       <div className="flex justify-center">
+        <ScrollPicker
+          items={months}
+          defaultOptionIndex={dateParts.month}
+          setNewValue={setSelectedMonth}
+        />
         <ScrollPicker
           items={yearsList}
           defaultOptionIndex={yearsExceptSelected / 2}

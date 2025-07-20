@@ -10,11 +10,8 @@ export function ScrollPicker({ items = [], defaultOptionIndex = 0, setNewValue }
   const paddedItems = [...Array(paddingStart).fill(''), ...items, ...Array(paddingEnd).fill('')];
 
   const scrollToOption = useCallback(
-    ({ element, option, enableSmoothScroll = false }) => {
-      let scrollTo =
-        element ||
-        itemRefs.current.find((item) => item.dataset.id === option.id) ||
-        itemRefs.current[paddingStart];
+    ({ element, enableSmoothScroll = false }) => {
+      let scrollTo = element || itemRefs.current[paddingStart];
 
       scrollTo?.scrollIntoView({
         block: 'center',
