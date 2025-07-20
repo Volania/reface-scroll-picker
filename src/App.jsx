@@ -1,6 +1,13 @@
 import { ScrollPicker } from '@/components/ScrollPicker.jsx';
+import { getSearchParams } from '@/utils/getSearchParams';
+import { getDateParts } from '@/utils/getDateParts';
 
 function App() {
+  const defaultDateISO = getSearchParams()?.date || new Date().toISOString();
+  const date = new Date(defaultDateISO);
+
+  const dateParts = getDateParts(date);
+
   return (
     <div className="m-8">
       <h1 className="text-2xl mb-8">Scroll Picker</h1>
