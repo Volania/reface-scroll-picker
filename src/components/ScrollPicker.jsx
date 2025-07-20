@@ -9,22 +9,18 @@ export function ScrollPicker({ items = [], defaultOptionIndex = 0, setNewValue }
 
   const paddedItems = [...Array(paddingStart).fill(''), ...items, ...Array(paddingEnd).fill('')];
 
-  const scrollToOption = useCallback(
-    ({ element, enableSmoothScroll = false }) => {
-      let scrollTo = element || itemRefs.current[paddingStart];
+  const scrollToOption = useCallback(({ element, enableSmoothScroll = false }) => {
+    let scrollTo = element;
 
-      scrollTo?.scrollIntoView({
-        block: 'center',
-        behavior: enableSmoothScroll ? 'smooth' : 'instant',
-      });
-    },
-    [paddingStart]
-  );
+    scrollTo?.scrollIntoView({
+      block: 'center',
+      behavior: enableSmoothScroll ? 'smooth' : 'instant',
+    });
+  }, []);
 
   useEffect(() => {
     scrollToOption({
-      element:
-        itemRefs.current[Math.min(defaultOptionIndex + paddingStart, items.length + paddingStart)],
+      element: itemRefs.current[defaultOptionIndex + paddingStart],
     });
   }, [items, defaultOptionIndex, paddingStart, scrollToOption]);
 

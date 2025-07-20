@@ -16,13 +16,6 @@ function App() {
   const [yearsList, setYearsList] = useState(createYearsArr(dateParts.year, yearsExceptSelected));
   const [selectedYear, setSelectedYear] = useState(dateParts.year);
 
-  // Add items when near the start or the end of the list
-  useEffect(() => {
-    if (+selectedYear > yearsList[yearsList.length - 3] || +selectedYear < yearsList[2]) {
-      setYearsList(createYearsArr(+selectedYear, yearsExceptSelected));
-    }
-  }, [selectedYear, yearsList]);
-
   // Month picker data
   const [selectedMonth, setSelectedMonth] = useState(months[dateParts.month]);
 
@@ -31,6 +24,24 @@ function App() {
     createDaysArr(getMonthNumber(selectedMonth), +selectedYear)
   );
   const [selectedDay, setSelectedDay] = useState(dateParts.day);
+  const [defaultDay, setDefaultDay] = useState(dateParts.day);
+
+  // YEAR PICKER: Add items when near the start or the end of the list
+  useEffect(() => {
+    if (+selectedYear > yearsList[yearsList.length - 3] || +selectedYear < yearsList[2]) {
+      setYearsList(createYearsArr(+selectedYear, yearsExceptSelected));
+    }
+  }, [selectedYear, yearsList]);
+
+  // DAYS PICKER: Update number of days when month or year changes
+  useEffect(() => {
+    const newDaysArr = createDaysArr(getMonthNumber(selectedMonth), +selectedYear);
+
+    if (newDaysArr.length !== daysList.length) {
+      setDefaultDay(selectedDay);
+      setDaysList(newDaysArr);
+    }
+  }, [selectedMonth, selectedYear, daysList.length, selectedDay]);
 
   // Month, Day, Year, Hour, Minute, AM/PM
 
@@ -45,7 +56,7 @@ function App() {
         />
         <ScrollPicker
           items={daysList}
-          defaultOptionIndex={dateParts.day}
+          defaultOptionIndex={defaultDay}
           setNewValue={setSelectedDay}
         />
         <ScrollPicker
