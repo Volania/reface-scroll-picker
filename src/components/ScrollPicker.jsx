@@ -30,7 +30,7 @@ export function ScrollPicker({ items = [], defaultOptionIndex = 0, setNewValue }
         entries.forEach((entry) => {
           const el = entry.target;
 
-          const selectedOptionClasses = ['text-black', 'font-semibold'];
+          const selectedOptionClasses = ['text-black'];
 
           if (entry.isIntersecting) {
             el.classList.add(...selectedOptionClasses);
@@ -64,14 +64,14 @@ export function ScrollPicker({ items = [], defaultOptionIndex = 0, setNewValue }
         <div className="absolute left-0 right-0 h-px bg-gray-200 bottom-[64px] pointer-events-none" />
         <ul
           ref={containerRef}
-          className="h-40 overflow-scroll w-max scroll-picker snap-y snap-mandatory text-gray-400"
+          className="h-40 overflow-scroll w-max scroll-picker snap-y snap-mandatory text-gray-300"
         >
           {paddedItems.map((item, i) => (
             <li
               key={item || 'padding_' + i}
               data-id={item || 'padding_' + i}
               ref={(el) => (itemRefs.current[i] = el)}
-              className="h-8 px-4 flex items-center justify-center snap-start transition-colors"
+              className="h-8 px-3 sm:px-4 flex items-center justify-center snap-start transition-colors"
               onClick={(e) => {
                 scrollToOption({ element: e.target, enableSmoothScroll: true });
               }}
