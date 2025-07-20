@@ -5,7 +5,8 @@ import { getSearchParams } from '@/utils/getSearchParams';
 import { getDateParts } from '@/utils/getDateParts';
 import { createYearsArr } from '@/utils/createYearsArr';
 import { getMonthNumber, months } from '@/utils/months';
-import { createDaysArr } from './utils/createDaysArr';
+import { createDaysArr } from '@/utils/createDaysArr';
+import { ampm } from '@/utils/ampm';
 
 function App() {
   const defaultDateISO = getSearchParams()?.date || new Date().toISOString();
@@ -64,6 +65,15 @@ function App() {
           defaultOptionIndex={yearsExceptSelected / 2}
           setNewValue={setSelectedYear}
         />
+        <ScrollPicker
+          items={Array.from({ length: 12 }, (_, i) => i + 1)}
+          defaultOptionIndex={dateParts.hour12 - 1}
+        />
+        <ScrollPicker
+          items={Array.from({ length: 60 }, (_, i) => i.toString().padStart(2, '0'))}
+          defaultOptionIndex={dateParts.minute}
+        />
+        <ScrollPicker items={ampm} defaultOptionIndex={ampm.indexOf(dateParts.ampm)} />
       </div>
     </div>
   );
