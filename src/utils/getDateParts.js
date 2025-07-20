@@ -1,6 +1,6 @@
 export function getDateParts(date) {
   const year = date.getUTCFullYear();
-  const month = date.toLocaleString('en-US', { month: 'long', timeZone: 'UTC' });
+  const month = date.getUTCMonth();
   const day = date.getUTCDate();
   const hour24 = date.getUTCHours();
   const hour12 = hour24 % 12 || 12;

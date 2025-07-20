@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react';
 
-export function ScrollPicker({ items = [], defaultOptionIndex = 2, onChange }) {
+export function ScrollPicker({ items = [], defaultOptionIndex = 0, setNewValue }) {
   const containerRef = useRef(null);
   const itemRefs = useRef([]);
 
@@ -26,7 +26,8 @@ export function ScrollPicker({ items = [], defaultOptionIndex = 2, onChange }) {
 
   useEffect(() => {
     scrollToOption({
-      element: itemRefs.current[Math.min(defaultOptionIndex, items.length + paddingStart)],
+      element:
+        itemRefs.current[Math.min(defaultOptionIndex + paddingStart, items.length + paddingStart)],
     });
   }, [items, defaultOptionIndex, paddingStart, scrollToOption]);
 
@@ -39,10 +40,11 @@ export function ScrollPicker({ items = [], defaultOptionIndex = 2, onChange }) {
           const selectedOptionClasses = ['text-black', 'font-semibold'];
 
           if (entry.isIntersecting) {
-            if (onChange) {
-              onChange();
-            }
             el.classList.add(...selectedOptionClasses);
+
+            if (setNewValue) {
+              setNewValue(el.innerHTML);
+            }
           } else {
             el.classList.remove(...selectedOptionClasses);
           }
@@ -60,7 +62,7 @@ export function ScrollPicker({ items = [], defaultOptionIndex = 2, onChange }) {
     });
 
     return () => observer.disconnect();
-  }, [onChange]);
+  }, [items, setNewValue]);
 
   return (
     items.length !== 0 && (
@@ -73,7 +75,7 @@ export function ScrollPicker({ items = [], defaultOptionIndex = 2, onChange }) {
         >
           {paddedItems.map((item, i) => (
             <li
-              key={i}
+              key={item || i}
               data-id={item || i}
               ref={(el) => (itemRefs.current[i] = el)}
               className="h-8 px-4 flex items-center justify-center snap-start transition-colors"
