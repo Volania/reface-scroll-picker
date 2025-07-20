@@ -6,6 +6,7 @@ import DayPicker from '@/components/DayPicker';
 import HourPicker from '@/components/HourPicker';
 import MinutePicker from '@/components/MinutePicker';
 import AmPmPicker from '@/components/AmPmPicker';
+import SubmitBtn from './components/SubmitBtn';
 
 function App() {
   const defaultDateISO = getSearchParams()?.date || new Date().toISOString();
@@ -22,6 +23,8 @@ function App() {
         <MinutePicker defaultDateParts={defaultDateParts} />
         <AmPmPicker defaultDateParts={defaultDateParts} />
       </div>
+
+      <SubmitBtn />
     </div>
   );
 }

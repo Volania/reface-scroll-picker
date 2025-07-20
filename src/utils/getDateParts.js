@@ -1,13 +1,13 @@
-import { ampm as ampmArr } from '@/utils/ampm';
+import { hour24to12 } from '@/utils/ampm';
 
 export function getDateParts(date) {
   const year = date.getUTCFullYear();
   const month = date.getUTCMonth();
   const day = date.getUTCDate();
   const hour24 = date.getUTCHours();
-  const hour12 = hour24 % 12 || 12;
   const minute = date.getUTCMinutes();
-  const ampm = hour24 >= 12 ? ampmArr[1] : ampmArr[0];
+
+  const [hour12, ampm] = hour24to12(hour24);
 
   return {
     year,
