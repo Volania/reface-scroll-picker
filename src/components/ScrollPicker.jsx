@@ -72,8 +72,8 @@ export function ScrollPicker({ items = [], defaultOptionIndex = 0, setNewValue }
         >
           {paddedItems.map((item, i) => (
             <li
-              key={item || i}
-              data-id={item || i}
+              key={item || 'padding_' + i}
+              data-id={item || 'padding_' + i}
               ref={(el) => (itemRefs.current[i] = el)}
               className="h-8 px-4 flex items-center justify-center snap-start transition-colors"
               onClick={(e) => {
