@@ -37,7 +37,7 @@ export function ScrollPicker({ items = [], defaultOptionIndex = 0, setNewValue }
           if (entry.isIntersecting) {
             el.classList.add(...selectedOptionClasses);
 
-            if (setNewValue) {
+            if (setNewValue && el.innerHTML) {
               setNewValue(el.innerHTML);
             }
           } else {
