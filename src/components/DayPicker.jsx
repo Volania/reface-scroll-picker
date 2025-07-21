@@ -23,6 +23,10 @@ export default function DayPicker() {
   }, [selectedMonth, selectedYear, daysList.length, setDaysList]);
 
   return (
-    <ScrollPicker items={daysList} defaultOptionIndex={selectedDay} setNewValue={setSelectedDay} />
+    <ScrollPicker
+      items={daysList}
+      defaultOptionIndex={selectedDay - 1}
+      setNewValue={setSelectedDay}
+    />
   );
 }

@@ -32,7 +32,7 @@ export default function SubmitBtn() {
 
   return (
     <button
-      className="mt-8 bg-blue-500 text-white hover:bg-blue-400 focus:bg-blue-400 px-4 py-2 rounded font-bold cursor-pointer"
+      className="bg-blue-500 text-white hover:bg-blue-400 focus:bg-blue-400 px-4 py-2 rounded font-bold cursor-pointer"
       onClick={handleClick}
     >
       Submit

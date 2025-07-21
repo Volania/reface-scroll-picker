@@ -6,7 +6,7 @@ import { ScrollPicker } from '@/components/ScrollPicker.jsx';
 import { createYearsArr } from '@/utils/createYearsArr';
 
 export default function YearPicker({ defaultDateParts }) {
-  const yearsExceptSelected = 20;
+  const yearsExceptSelected = 10;
   const [yearsList, setYearsList] = useState(
     createYearsArr(defaultDateParts.year, yearsExceptSelected)
   );

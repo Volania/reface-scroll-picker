@@ -11,8 +11,8 @@ function App() {
   const defaultDateParts = getDatePartsFromSearchParams();
 
   return (
-    <div className="m-8 flex flex-col w-max max-w-[95%] mx-auto">
-      <h1 className="text-3xl mb-8 font-bold">Scroll Picker</h1>
+    <div className="m-8 flex gap-8 flex-col w-max max-w-[95%] mx-auto">
+      <h1 className="text-3xl font-bold">Scroll Picker</h1>
       <div className="flex justify-center overflow-x-auto">
         <MonthPicker defaultDateParts={defaultDateParts} />
         <DayPicker defaultDateParts={defaultDateParts} />
